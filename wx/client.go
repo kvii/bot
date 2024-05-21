@@ -49,7 +49,7 @@ var (
 type BotClient struct {
 	Client  *http.Client // 底层 http client。不填则使用默认值。
 	Logger  *slog.Logger // 日志 logger。不填则使用默认值。
-	BaseURL string       // 飞书接口基础地址。不填则使用默认值。
+	BaseURL string       // 接口基础地址。不填则使用默认值。
 	Key     string       // 机器人令牌。
 }
 
