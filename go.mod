@@ -1,3 +1,3 @@
-module github.com/kvii/feishu
+module github.com/kvii/bot
 
-go 1.22.2
+go 1.22.3
