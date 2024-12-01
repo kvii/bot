@@ -18,13 +18,19 @@ import (
 type MessageType = string
 
 const (
-	MessageTypeText MessageType = "text" // 文本信息类型
+	MessageTypeText     MessageType = "text" // 文本信息类型
+	MessageTypeMarkDown MessageType = "markdown"
 )
+
+type MarkDownMessage struct {
+	Content string `json:"content"`
+}
 
 // 信息
 type Message struct {
-	MsgType MessageType  `json:"msgtype"`        // 信息类型
-	Text    *TextMessage `json:"text,omitempty"` // 文本信息
+	MsgType  MessageType      `json:"msgtype"`        // 信息类型
+	Text     *TextMessage     `json:"text,omitempty"` // 文本信息
+	MarkDown *MarkDownMessage `json:"markdown,omitempty"`
 }
 
 // 文本信息
@@ -61,6 +67,16 @@ func (c BotClient) SendText(ctx context.Context, msg string) error {
 	return c.send(ctx, Message{
 		MsgType: MessageTypeText,
 		Text:    &TextMessage{Content: msg},
+	})
+}
+
+// SendMarkDown 发送 Markdown 信息。
+func (c BotClient) SendMarkDown(ctx context.Context, msg string) error {
+	c.logger().InfoContext(ctx, "发送 Markdown 消息", slog.String("msg", msg))
+
+	return c.send(ctx, Message{
+		MsgType:  MessageTypeMarkDown,
+		MarkDown: &MarkDownMessage{Content: msg},
 	})
 }
 
