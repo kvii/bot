@@ -52,7 +52,7 @@ type BotClient struct {
 	Token   string       // 机器人令牌。
 }
 
-// SendText 方法发送文本信息。
+// 方法发送文本信息。
 // 目前只支持文本信息。信息内容需要包含指定关键字。
 func (c BotClient) SendText(ctx context.Context, msg string) error {
 	c.logger().InfoContext(ctx, "发送文本消息", slog.String("msg", msg))
@@ -63,7 +63,7 @@ func (c BotClient) SendText(ctx context.Context, msg string) error {
 	})
 }
 
-// Send 方法发送信息。
+// 方法发送信息。
 // 目前只支持文本信息。信息内容需要包含指定关键字。
 func (c BotClient) Send(ctx context.Context, msg Message) error {
 	c.logger().InfoContext(ctx, "发送消息", slog.String("msgType", msg.MsgType))
