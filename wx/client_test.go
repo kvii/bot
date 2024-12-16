@@ -107,7 +107,7 @@ func TestBotClientSendText(t *testing.T) {
 	}
 }
 
-func TestBotClient_SendMarkDown(t *testing.T) {
+func TestBotClient_SendMarkdown(t *testing.T) {
 	var logger *slog.Logger
 	if testing.Verbose() {
 		logger = slog.Default()
@@ -160,7 +160,7 @@ func TestBotClient_SendMarkDown(t *testing.T) {
 
 	for _, tc := range testCasesMarkdown {
 		t.Run(tc.name, func(t *testing.T) {
-			err := tc.client.SendMarkDown(tc.ctx, tc.msg)
+			err := tc.client.SendMarkdown(tc.ctx, tc.msg)
 			if !errors.Is(tc.err, err) {
 				t.Fatalf("expect %v, got %v", tc.err, err)
 			}
