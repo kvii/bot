@@ -18,13 +18,20 @@ import (
 type MessageType = string
 
 const (
-	MessageTypeText MessageType = "text" // 文本信息类型
+	MessageTypeText     MessageType = "text"     // 文本信息类型
+	MessageTypeMarkdown MessageType = "markdown" // markdown 信息类型
 )
+
+// markdown 信息
+type MarkdownMessage struct {
+	Content string `json:"content"` // 是	markdown内容，最长不超过4096个字节，必须是utf8编码
+}
 
 // 信息
 type Message struct {
-	MsgType MessageType  `json:"msgtype"`        // 信息类型
-	Text    *TextMessage `json:"text,omitempty"` // 文本信息
+	MsgType  MessageType      `json:"msgtype"`            // 信息类型
+	Text     *TextMessage     `json:"text,omitempty"`     // 文本信息
+	Markdown *MarkdownMessage `json:"markdown,omitempty"` // markdown 信息
 }
 
 // 文本信息
@@ -61,6 +68,16 @@ func (c BotClient) SendText(ctx context.Context, msg string) error {
 	return c.send(ctx, Message{
 		MsgType: MessageTypeText,
 		Text:    &TextMessage{Content: msg},
+	})
+}
+
+// SendMarkdown 发送 Markdown 信息。
+func (c BotClient) SendMarkdown(ctx context.Context, msg string) error {
+	c.logger().InfoContext(ctx, "发送 Markdown 消息", slog.String("msg", msg))
+
+	return c.send(ctx, Message{
+		MsgType:  MessageTypeMarkdown,
+		Markdown: &MarkdownMessage{Content: msg},
 	})
 }
 
