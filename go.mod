@@ -1,3 +1,3 @@
-module github.com/ZoeKyHein/bot
+module github.com/kvii/bot
 
 go 1.22.3
